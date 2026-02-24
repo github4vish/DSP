@@ -1,0 +1,11 @@
+Age,Gender,BloodPressure,Glucose,Cholesterol,BMI,Disease
+45,Male,130,150,220,28,1
+50,Female,120,130,200,25,0
+60,Male,140,180,240,30,1
+35,Female,110,100,180,22,0
+55,Male,150,190,260,32,1
+40,Female,125,140,210,27,0
+65,Male,160,200,280,35,1
+30,Female,115,105,190,23,0
+52,Male,145,170,230,29,1
+48,Female,118,135,205,26,0

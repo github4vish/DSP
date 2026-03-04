@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crossfilter Test</title>
+</head>
+<body>
+
+<h2>Open Console (F12)</h2>
+
+<!-- ✅ 1. Load Crossfilter FIRST -->
+<script src="https://unpkg.com/crossfilter2/crossfilter.min.js"></script>
+
+<!-- ✅ 2. THEN Write Your Script -->
+<script>
+
+var salesData = [
+  {date: "2025-01-01", city: "Hyderabad", amount: 200},
+  {date: "2025-01-02", city: "Chennai", amount: 300},
+  {date: "2025-01-03", city: "Hyderabad", amount: 150}
+];
+
+var cf = crossfilter(salesData);
+
+var cityDim = cf.dimension(d => d.city);
+
+var cityGroup = cityDim.group().reduceSum(d => d.amount);
+
+console.log("Before:", cityGroup.all());
+
+cityDim.filter("Hyderabad");
+
+console.log("Filtered records:", cityDim.top(Infinity));
+
+cityDim = cf.dimension(d => d.city);
+
+cityGroup = cityDim.group().reduceSum(d => d.amount);
+console.log("After:", cityGroup.all());
+</script>
+
+</body>
+</html>

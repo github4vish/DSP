@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sales Dashboard</title>
 
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- DC + D3 + Crossfilter -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/crossfilter2/crossfilter.min.js"></script>
+<script src="https://unpkg.com/dc@4/dist/dc.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dc@4/dist/style/dc.css"/>
+
+<style>
+#barChart, #pieChart {
+    height: 300px;   /* Control chart height here */
+}
+</style>
+</head>
+
+<body class="container mt-4">
+
+<h2 class="text-center mb-4">Sales Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="barChart"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="pieChart"></div>
+    </div>
+</div>
+
+<script>
+var data=[
+{city:"Hyderabad",product:"Laptop",amount:200},
+{city:"Chennai",product:"Mobile",amount:300},
+{city:"Hyderabad",product:"Mobile",amount:150},
+{city:"Chennai",product:"Laptop",amount:100}
+];
+
+var cf=crossfilter(data),
+city=cf.dimension(d=>d.city),
+cityGrp=city.group().reduceSum(d=>d.amount),
+prod=cf.dimension(d=>d.product),
+prodGrp=prod.group().reduceSum(d=>d.amount);
+
+new dc.BarChart("#barChart")
+.dimension(city).group(cityGrp)
+.x(d3.scaleBand()).xUnits(dc.units.ordinal);
+
+new dc.PieChart("#pieChart")
+.dimension(prod).group(prodGrp);
+
+dc.renderAll();
+</script>
+
+</body>
+</html>
